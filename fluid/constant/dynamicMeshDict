@@ -1,0 +1,35 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v1912                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      dynamicMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dynamicFvMesh dynamicMotionSolverFvMesh;
+solver solidBodyDisplacementLaplacian;
+diffusivity quadratic inversePointDistance (airfoilUp airfoilDown);
+//diffusivity uniform;
+
+interpolation patchCorrected
+(
+    (airfoilUp airfoilDown)
+    (farfield)
+);
+
+solidBodyMotionFunction  rotatingMotion;
+origin        (0 0 0);
+axis          (0 0 1);
+omega               0;
+
+
+// ************************************************************************* //
+
